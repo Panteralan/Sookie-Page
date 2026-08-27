@@ -1,0 +1,579 @@
+<title>MakeCode Arcade Quest Log</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --bg: #f4f6f2;
+    --surface: #ffffff;
+    --surface-raised: #ffffff;
+    --border: rgba(28, 33, 48, 0.12);
+    --text: #1c2130;
+    --text-muted: #5b6478;
+    --accent: #1f8a5f;
+    --accent-soft: rgba(31, 138, 95, 0.12);
+    --accent-2: #a5720c;
+    --accent-2-soft: rgba(165, 114, 12, 0.12);
+    --code-bg: #eef1ea;
+    --shadow: 0 1px 2px rgba(28, 33, 48, 0.04), 0 8px 24px rgba(28, 33, 48, 0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12141c;
+      --surface: #1b1f2b;
+      --surface-raised: #212636;
+      --border: rgba(238, 241, 246, 0.1);
+      --text: #eef1f6;
+      --text-muted: #99a1b6;
+      --accent: #7ee3a8;
+      --accent-soft: rgba(126, 227, 168, 0.14);
+      --accent-2: #f6b94d;
+      --accent-2-soft: rgba(246, 185, 77, 0.14);
+      --code-bg: #161a24;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #12141c;
+    --surface: #1b1f2b;
+    --surface-raised: #212636;
+    --border: rgba(238, 241, 246, 0.1);
+    --text: #eef1f6;
+    --text-muted: #99a1b6;
+    --accent: #7ee3a8;
+    --accent-soft: rgba(126, 227, 168, 0.14);
+    --accent-2: #f6b94d;
+    --accent-2-soft: rgba(246, 185, 77, 0.14);
+    --code-bg: #161a24;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.5rem;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-size: 0.95rem;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    width: 1.6rem;
+    height: 1.6rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 1rem;
+  }
+
+  .lang-switch {
+    display: flex;
+    gap: 0.35rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  .lang-switch button {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .lang-switch button:hover { color: var(--text); }
+
+  .lang-switch button[aria-pressed="true"] {
+    background: var(--accent);
+    color: #0d1410;
+  }
+
+  :root[data-theme="light"] .lang-switch button[aria-pressed="true"],
+  :root:not([data-theme="dark"]):not([data-theme="light"]) .lang-switch button[aria-pressed="true"] {
+    color: #f4fff8;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .lang-switch button[aria-pressed="true"] { color: #f4fff8; }
+  }
+
+  .lang-switch button:focus-visible,
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.75rem;
+  }
+
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0 0 0.9rem;
+  }
+
+  .intro {
+    font-size: 1.02rem;
+    color: var(--text-muted);
+    max-width: 60ch;
+    margin: 0 0 1.25rem;
+  }
+
+  .intro strong { color: var(--text); font-weight: 700; }
+
+  .howto {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.75rem 0 2.75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .howto h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .howto ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+  }
+
+  .howto li { margin: 0.3rem 0; }
+  .howto li::marker { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+  .howto code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--code-bg);
+    color: var(--text);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+
+  .levels {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .level {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem 1.5rem 1.6rem;
+    box-shadow: var(--shadow);
+  }
+
+  .level-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .level-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 0.15rem 0.5rem;
+    letter-spacing: 0.03em;
+    flex-shrink: 0;
+  }
+
+  .level h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .level p {
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    margin: 0.4rem 0 1rem;
+    max-width: 62ch;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.22rem 0.55rem;
+    border-radius: 999px;
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+  }
+
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .video-missing {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  footer {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  footer .heart { color: var(--accent-2); }
+</style>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="brand-mark">&gt;_</span>
+    <span data-i18n="brandName">Registro de Misiones Python</span>
+  </div>
+  <div class="lang-switch" role="group" aria-label="Language / Idioma / Sprache">
+    <button type="button" data-lang-btn="es" aria-pressed="true">ES</button>
+    <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang-btn="de" aria-pressed="false">DE</button>
+  </div>
+</div>
+
+<main>
+  <p class="eyebrow" data-i18n="eyebrow">9° · Ciencias de la Computación</p>
+  <h1 data-i18n="title">Lo que estamos programando en clase</h1>
+  <p class="intro" data-i18n="intro">
+    Esta página reúne los temas de Python y MakeCode Arcade que hemos trabajado en clase,
+    con un video corto de explicación para cada uno. <strong>Los videos están grabados en español</strong>,
+    pero podés cambiar el idioma del texto de esta página con los botones ES / EN / DE de arriba.
+  </p>
+
+  <div class="howto">
+    <h2><span aria-hidden="true">🎧</span> <span data-i18n="howtoTitle">Cómo escuchar los videos en tu idioma</span></h2>
+    <ol data-i18n-html="howtoSteps"></ol>
+  </div>
+
+  <div class="levels" id="levels"></div>
+</main>
+
+<footer>
+  <p data-i18n="footer">Cualquier duda, escribime — con gusto te explico de nuevo cualquier tema. <span class="heart">¡Bienvenida!</span></p>
+</footer>
+
+<script>
+(function () {
+  var STRINGS = {
+    brandName: {
+      es: "Registro de Misiones MakeCode Arcade",
+      en: "MakeCode Arcade Quest Log",
+      de: "MakeCode-Arcade-Questlog"
+    },
+    eyebrow: {
+      es: "9° · Ciencias de la Computación",
+      en: "9th Grade · Computer Science",
+      de: "9. Klasse · Informatik"
+    },
+    title: {
+      es: "Cómo armamos videojuegos en MakeCode Arcade",
+      en: "How we're building games in MakeCode Arcade",
+      de: "Wie wir Spiele in MakeCode Arcade bauen"
+    },
+    intro: {
+      es: 'Esta página reúne los videos donde explico, paso a paso, cómo armamos nuestros videojuegos en MakeCode Arcade usando <strong>programación en bloques</strong> (no hace falta saber Python para seguirlos). <strong>Los videos están grabados en español</strong>, pero podés cambiar el idioma del texto de esta página con los botones ES / EN / DE de arriba.',
+      en: 'This page collects the videos where I explain, step by step, how we build our video games in MakeCode Arcade using <strong>block-based programming</strong> (you don\'t need to know Python to follow along). <strong>The videos are recorded in Spanish</strong>, but you can switch this page\'s text language with the ES / EN / DE buttons above.',
+      de: 'Diese Seite sammelt die Videos, in denen ich Schritt für Schritt erkläre, wie wir unsere Videospiele in MakeCode Arcade mit <strong>blockbasierter Programmierung</strong> bauen (Python-Kenntnisse sind dafür nicht nötig). <strong>Die Videos sind auf Spanisch aufgenommen</strong>, aber du kannst die Textsprache dieser Seite oben mit den Buttons ES / EN / DE umschalten.'
+    },
+    howtoTitle: {
+      es: "Cómo escuchar los videos en tu idioma",
+      en: "How to follow the videos in your language",
+      de: "So folgst du den Videos in deiner Sprache"
+    },
+    howtoSteps: {
+      es: [
+        "Abrí el video y hacé clic en el ícono de <strong>engranaje ⚙️</strong> (Configuración) en la esquina inferior del reproductor.",
+        "Elegí <strong>Subtítulos/CC</strong> → <strong>Traducir automáticamente</strong> → seleccioná inglés o alemán.",
+        "Activá los subtítulos con el botón <code>CC</code>. El audio queda en español, pero podés leer la traducción en pantalla."
+      ],
+      en: [
+        "Open the video and click the <strong>gear icon ⚙️</strong> (Settings) in the bottom corner of the player.",
+        "Choose <strong>Subtitles/CC</strong> → <strong>Auto-translate</strong> → select English or German.",
+        "Turn on captions with the <code>CC</code> button. The audio stays in Spanish, but you can read the translation on screen."
+      ],
+      de: [
+        "Öffne das Video und klicke auf das <strong>Zahnrad-Symbol ⚙️</strong> (Einstellungen) unten im Player.",
+        "Wähle <strong>Untertitel/CC</strong> → <strong>Automatisch übersetzen</strong> → English oder Deutsch auswählen.",
+        "Aktiviere die Untertitel mit dem <code>CC</code>-Button. Der Ton bleibt Spanisch, aber du kannst die Übersetzung mitlesen."
+      ]
+    },
+    footer: {
+      es: 'Cualquier duda, escribime — con gusto te explico de nuevo cualquier tema. <span class="heart">¡Bienvenida!</span>',
+      en: 'Any questions, just message me — happy to explain any topic again. <span class="heart">Welcome!</span>',
+      de: 'Bei Fragen schreib mir einfach — ich erkläre jedes Thema gern noch einmal. <span class="heart">Willkommen!</span>'
+    },
+    videoMissing: {
+      es: "Video próximamente",
+      en: "Video coming soon",
+      de: "Video folgt in Kürze"
+    },
+    watchOn: {
+      es: "Ver en YouTube",
+      en: "Watch on YouTube",
+      de: "Auf YouTube ansehen"
+    }
+  };
+
+  // ---- EDITAR ACÁ: agregá el ID de YouTube de cada video (la parte después de "v=" en la URL). ----
+  // ---- EDIT HERE: add each video's YouTube ID (the part after "v=" in the URL). ----
+  var LEVELS = [
+    {
+      num: "01",
+      youtubeId: "rW1U1NBbUcw", // ej: "dQw4w9WgXcQ"
+      tags: { es: ["sprites", "proyectiles", "colisiones", "puntos"], en: ["sprites", "projectiles", "collisions", "score"], de: ["Sprites", "Projektile", "Kollisionen", "Punkte"] },
+      title: { es: "Primeros pasos en MakeCode Arcade", en: "Getting started with MakeCode Arcade", de: "Erste Schritte mit MakeCode Arcade" },
+      text: {
+        es: "Cómo usar la plataforma MakeCode Arcade: creación de un personaje (sprite), proyectiles, detección de colisiones y un sistema de puntos.",
+        en: "How to use the MakeCode Arcade platform: creating a character (sprite), projectiles, collision detection, and a scoring system.",
+        de: "Verwendung der MakeCode-Arcade-Plattform: Erstellen einer Spielfigur (Sprite), Projektile, Kollisionserkennung und ein Punktesystem."
+      }
+    },
+    {
+      num: "02",
+      youtubeId: "PAXD7f4IMuw",
+      tags: { es: ["laberinto", "paredes", "tilemap"], en: ["maze", "walls", "tilemap"], de: ["Labyrinth", "Wände", "Tilemap"] },
+      title: { es: "Laberinto: paredes y tilemap (parte 1)", en: "Maze: walls and tilemap (part 1)", de: "Labyrinth: Wände und Tilemap (Teil 1)" },
+      text: {
+        es: "Primera parte de la creación de un laberinto: cómo usar las paredes y el mapa de baldosas (tilemap).",
+        en: "Part one of building a maze: working with walls and the tile map (tilemap).",
+        de: "Erster Teil des Labyrinth-Baus: Arbeiten mit Wänden und der Kachelkarte (Tilemap)."
+      }
+    },
+    {
+      num: "03",
+      youtubeId: "I25ZuzjIRj0",
+      tags: { es: ["animaciones", "extensiones", "niveles"], en: ["animations", "extensions", "levels"], de: ["Animationen", "Erweiterungen", "Levels"] },
+      title: { es: "Laberinto: animaciones y niveles (parte 2)", en: "Maze: animations and levels (part 2)", de: "Labyrinth: Animationen und Levels (Teil 2)" },
+      text: {
+        es: "Segunda parte del laberinto: cómo armar animaciones usando una extensión, y creación de niveles nuevos.",
+        en: "Part two of the maze: building animations using an extension, and creating new levels.",
+        de: "Zweiter Teil des Labyrinths: Erstellen von Animationen mit einer Erweiterung und neue Levels erstellen."
+      }
+    },
+    {
+      num: "04",
+      youtubeId: "OKLA0bPamIc",
+      tags: { es: ["2D", "gravedad", "enemigos"], en: ["2D", "gravity", "enemies"], de: ["2D", "Schwerkraft", "Gegner"] },
+      title: { es: "Videojuegos 2D: gravedad y enemigos", en: "2D games: gravity and enemies", de: "2D-Spiele: Schwerkraft und Gegner" },
+      text: {
+        es: "Arrancamos con videojuegos en 2D: cómo programar la gravedad, los niveles y los enemigos.",
+        en: "We start with 2D video games: programming gravity, levels, and enemies.",
+        de: "Wir starten mit 2D-Videospielen: Programmieren von Schwerkraft, Levels und Gegnern."
+      }
+    },
+    {
+      num: "05",
+      youtubeId: "5oRffbxT72Q",
+      tags: { es: ["paredes invisibles", "enemigos duplicados", "objetos animados"], en: ["invisible walls", "duplicate enemies", "animated objects"], de: ["unsichtbare Wände", "doppelte Gegner", "animierte Objekte"] },
+      title: { es: "Paredes invisibles y enemigos animados", en: "Invisible walls and animated enemies", de: "Unsichtbare Wände und animierte Gegner" },
+      text: {
+        es: "Cómo generar paredes invisibles, destruir enemigos para que no aparezcan duplicados en el mapa, y colocar objetos animados y enemigos animados en movimiento.",
+        en: "How to create invisible walls, destroy enemies so they don't appear duplicated on the map, and place animated objects and moving animated enemies.",
+        de: "Wie man unsichtbare Wände erzeugt, Gegner zerstört, damit sie nicht doppelt auf der Karte erscheinen, und animierte Objekte sowie sich bewegende animierte Gegner platziert."
+      }
+    }
+  ];
+
+  var current = "es";
+  try {
+    var saved = localStorage.getItem("pql-lang");
+    if (saved && STRINGS.title[saved]) current = saved;
+  } catch (e) {}
+
+  function renderLevels() {
+    var container = document.getElementById("levels");
+    container.innerHTML = "";
+    LEVELS.forEach(function (lvl) {
+      var el = document.createElement("article");
+      el.className = "level";
+
+      var head = document.createElement("div");
+      head.className = "level-head";
+      var num = document.createElement("span");
+      num.className = "level-num";
+      num.textContent = lvl.num;
+      var h3 = document.createElement("h3");
+      h3.textContent = lvl.title[current];
+      head.appendChild(num);
+      head.appendChild(h3);
+      el.appendChild(head);
+
+      var p = document.createElement("p");
+      p.textContent = lvl.text[current];
+      el.appendChild(p);
+
+      var tagWrap = document.createElement("div");
+      tagWrap.className = "tags";
+      lvl.tags[current].forEach(function (t) {
+        var span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = t;
+        tagWrap.appendChild(span);
+      });
+      el.appendChild(tagWrap);
+
+      var frame = document.createElement("div");
+      frame.className = "video-frame";
+      if (lvl.youtubeId) {
+        var iframe = document.createElement("iframe");
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + lvl.youtubeId;
+        iframe.title = lvl.title[current];
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.loading = "lazy";
+        frame.appendChild(iframe);
+      } else {
+        var missing = document.createElement("div");
+        missing.className = "video-missing";
+        missing.innerHTML = "<span aria-hidden='true' style='font-size:1.4rem'>🎬</span><span>" + STRINGS.videoMissing[current] + "</span>";
+        frame.appendChild(missing);
+      }
+      el.appendChild(frame);
+
+      container.appendChild(el);
+    });
+  }
+
+  function applyStrings() {
+    document.documentElement.setAttribute("lang", current);
+    document.querySelectorAll("[data-i18n]").forEach(function (node) {
+      var key = node.getAttribute("data-i18n");
+      if (STRINGS[key]) node.innerHTML = STRINGS[key][current];
+    });
+    var howto = document.querySelector('[data-i18n-html="howtoSteps"]');
+    if (howto) {
+      howto.innerHTML = "";
+      STRINGS.howtoSteps[current].forEach(function (stepHtml) {
+        var li = document.createElement("li");
+        li.innerHTML = stepHtml;
+        howto.appendChild(li);
+      });
+    }
+    document.querySelectorAll("[data-lang-btn]").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang-btn") === current ? "true" : "false");
+    });
+    renderLevels();
+  }
+
+  document.querySelectorAll("[data-lang-btn]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      current = btn.getAttribute("data-lang-btn");
+      try { localStorage.setItem("pql-lang", current); } catch (e) {}
+      applyStrings();
+    });
+  });
+
+  applyStrings();
+})();
+</script>
