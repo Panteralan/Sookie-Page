@@ -1,7 +1,7 @@
 <title>MakeCode Arcade Quest Log</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
-
+ 
   :root {
     --bg: #f4f6f2;
     --surface: #ffffff;
@@ -16,7 +16,7 @@
     --code-bg: #eef1ea;
     --shadow: 0 1px 2px rgba(28, 33, 48, 0.04), 0 8px 24px rgba(28, 33, 48, 0.06);
   }
-
+ 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #12141c;
@@ -33,7 +33,7 @@
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
     }
   }
-
+ 
   :root[data-theme="dark"] {
     --bg: #12141c;
     --surface: #1b1f2b;
@@ -48,9 +48,9 @@
     --code-bg: #161a24;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px rgba(0, 0, 0, 0.35);
   }
-
+ 
   * { box-sizing: border-box; }
-
+ 
   body {
     margin: 0;
     background: var(--bg);
@@ -59,11 +59,11 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-
+ 
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
   }
-
+ 
   .topbar {
     position: sticky;
     top: 0;
@@ -78,7 +78,7 @@
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
   }
-
+ 
   .brand {
     display: flex;
     align-items: center;
@@ -88,7 +88,7 @@
     letter-spacing: -0.01em;
     font-size: 0.95rem;
   }
-
+ 
   .brand-mark {
     display: inline-flex;
     width: 1.6rem;
@@ -100,7 +100,7 @@
     color: var(--accent);
     font-size: 1rem;
   }
-
+ 
   .lang-switch {
     display: flex;
     gap: 0.35rem;
@@ -110,7 +110,7 @@
     padding: 0.25rem;
     box-shadow: var(--shadow);
   }
-
+ 
   .lang-switch button {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
@@ -124,36 +124,36 @@
     cursor: pointer;
     transition: background 0.15s ease, color 0.15s ease;
   }
-
+ 
   .lang-switch button:hover { color: var(--text); }
-
+ 
   .lang-switch button[aria-pressed="true"] {
     background: var(--accent);
     color: #0d1410;
   }
-
+ 
   :root[data-theme="light"] .lang-switch button[aria-pressed="true"],
   :root:not([data-theme="dark"]):not([data-theme="light"]) .lang-switch button[aria-pressed="true"] {
     color: #f4fff8;
   }
-
+ 
   @media (prefers-color-scheme: light) {
     .lang-switch button[aria-pressed="true"] { color: #f4fff8; }
   }
-
+ 
   .lang-switch button:focus-visible,
   a:focus-visible,
   button:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
-
+ 
   main {
     max-width: 780px;
     margin: 0 auto;
     padding: 2.5rem 1.5rem 5rem;
   }
-
+ 
   .eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
@@ -163,7 +163,7 @@
     color: var(--accent);
     margin: 0 0 0.75rem;
   }
-
+ 
   h1 {
     font-family: 'JetBrains Mono', monospace;
     font-size: clamp(1.6rem, 4vw, 2.2rem);
@@ -172,16 +172,16 @@
     text-wrap: balance;
     margin: 0 0 0.9rem;
   }
-
+ 
   .intro {
     font-size: 1.02rem;
     color: var(--text-muted);
     max-width: 60ch;
     margin: 0 0 1.25rem;
   }
-
+ 
   .intro strong { color: var(--text); font-weight: 700; }
-
+ 
   .howto {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -190,7 +190,7 @@
     margin: 1.75rem 0 2.75rem;
     box-shadow: var(--shadow);
   }
-
+ 
   .howto h2 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85rem;
@@ -201,14 +201,14 @@
     align-items: center;
     gap: 0.5rem;
   }
-
+ 
   .howto ol {
     margin: 0;
     padding-left: 1.2rem;
     color: var(--text-muted);
     font-size: 0.92rem;
   }
-
+ 
   .howto li { margin: 0.3rem 0; }
   .howto li::marker { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
   .howto code {
@@ -219,13 +219,13 @@
     border-radius: 4px;
     font-size: 0.85em;
   }
-
+ 
   .levels {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
   }
-
+ 
   .level {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -233,14 +233,14 @@
     padding: 1.4rem 1.5rem 1.6rem;
     box-shadow: var(--shadow);
   }
-
+ 
   .level-head {
     display: flex;
     align-items: baseline;
     gap: 0.8rem;
     margin-bottom: 0.5rem;
   }
-
+ 
   .level-num {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
@@ -252,7 +252,7 @@
     letter-spacing: 0.03em;
     flex-shrink: 0;
   }
-
+ 
   .level h3 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 1.08rem;
@@ -260,21 +260,21 @@
     margin: 0;
     letter-spacing: -0.005em;
   }
-
+ 
   .level p {
     color: var(--text-muted);
     font-size: 0.96rem;
     margin: 0.4rem 0 1rem;
     max-width: 62ch;
   }
-
+ 
   .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
     margin-bottom: 1rem;
   }
-
+ 
   .tag {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
@@ -285,7 +285,7 @@
     background: var(--accent-2-soft);
     color: var(--accent-2);
   }
-
+ 
   .video-frame {
     position: relative;
     width: 100%;
@@ -295,14 +295,14 @@
     background: var(--code-bg);
     border: 1px solid var(--border);
   }
-
+ 
   .video-frame iframe {
     width: 100%;
     height: 100%;
     border: 0;
     display: block;
   }
-
+ 
   .video-missing {
     position: absolute;
     inset: 0;
@@ -317,7 +317,45 @@
     text-align: center;
     padding: 1rem;
   }
-
+ 
+  .chapters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+    border-top: 1px dashed var(--border);
+  }
+ 
+  .chapter-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.3rem 0.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.88rem;
+    transition: background 0.12s ease;
+  }
+ 
+  .chapter-link:hover,
+  .chapter-link:focus-visible {
+    background: var(--accent-soft);
+  }
+ 
+  .chapter-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 2.8rem;
+    font-variant-numeric: tabular-nums;
+  }
+ 
+  .chapter-label { color: var(--text-muted); }
+ 
   footer {
     max-width: 780px;
     margin: 0 auto;
@@ -326,10 +364,10 @@
     font-size: 0.85rem;
     text-align: center;
   }
-
+ 
   footer .heart { color: var(--accent-2); }
 </style>
-
+ 
 <div class="topbar">
   <div class="brand">
     <span class="brand-mark">&gt;_</span>
@@ -341,7 +379,7 @@
     <button type="button" data-lang-btn="de" aria-pressed="false">DE</button>
   </div>
 </div>
-
+ 
 <main>
   <p class="eyebrow" data-i18n="eyebrow">9° · Ciencias de la Computación</p>
   <h1 data-i18n="title">Lo que estamos programando en clase</h1>
@@ -350,19 +388,19 @@
     con un video corto de explicación para cada uno. <strong>Los videos están grabados en español</strong>,
     pero podés cambiar el idioma del texto de esta página con los botones ES / EN / DE de arriba.
   </p>
-
+ 
   <div class="howto">
     <h2><span aria-hidden="true">🎧</span> <span data-i18n="howtoTitle">Cómo escuchar los videos en tu idioma</span></h2>
     <ol data-i18n-html="howtoSteps"></ol>
   </div>
-
+ 
   <div class="levels" id="levels"></div>
 </main>
-
+ 
 <footer>
   <p data-i18n="footer">Cualquier duda, escribime — con gusto te explico de nuevo cualquier tema. <span class="heart">¡Bienvenida!</span></p>
 </footer>
-
+ 
 <script>
 (function () {
   var STRINGS = {
@@ -422,8 +460,19 @@
       es: "Ver en YouTube",
       en: "Watch on YouTube",
       de: "Auf YouTube ansehen"
+    },
+    chaptersLabel: {
+      es: "Capítulos",
+      en: "Chapters",
+      de: "Kapitel"
     }
   };
+ 
+  function formatTime(totalSeconds) {
+    var m = Math.floor(totalSeconds / 60);
+    var s = totalSeconds % 60;
+    return m + ":" + (s < 10 ? "0" + s : s);
+  }
 
   // ---- EDITAR ACÁ: agregá el ID de YouTube de cada video (la parte después de "v=" en la URL). ----
   // ---- EDIT HERE: add each video's YouTube ID (the part after "v=" in the URL). ----
@@ -482,6 +531,42 @@
         en: "How to create invisible walls, destroy enemies so they don't appear duplicated on the map, and place animated objects and moving animated enemies.",
         de: "Wie man unsichtbare Wände erzeugt, Gegner zerstört, damit sie nicht doppelt auf der Karte erscheinen, und animierte Objekte sowie sich bewegende animierte Gegner platziert."
       }
+    },
+ {
+      num: "06",
+      youtubeId: "TLXcfUa-PcI",
+      tags: { es: ["arcade-story-mode", "menús", "decisiones"], en: ["arcade-story-mode", "menus", "decisions"], de: ["arcade-story-mode", "Menüs", "Entscheidungen"] },
+      title: { es: "Extensión Arcade Story Mode", en: "Arcade Story Mode extension", de: "Arcade-Story-Mode-Erweiterung" },
+      text: {
+        es: "Cómo usar el menú de la extensión arcade-story-mode, para poder implementarla en otros proyectos cuando el jugador tenga que tomar diferentes decisiones.",
+        en: "How to use the arcade-story-mode extension's menu, so you can implement it in other projects whenever the player needs to make different decisions.",
+        de: "Wie man das Menü der Erweiterung arcade-story-mode verwendet, um sie in anderen Projekten einzusetzen, wenn der Spieler unterschiedliche Entscheidungen treffen muss."
+      },
+      chapters: [
+        { t: 0, es: "Introducción", en: "Introduction", de: "Einführung" },
+        { t: 160, es: "Explicación del proyecto para implementar la extensión", en: "Explaining the project to implement the extension", de: "Erklärung des Projekts zur Implementierung der Erweiterung" },
+        { t: 350, es: "Explicación de los bloques Arcade Story Mode", en: "Explaining the Arcade Story Mode blocks", de: "Erklärung der Arcade-Story-Mode-Blöcke" },
+        { t: 825, es: "Uso de los bloques de menú", en: "Using the menu blocks", de: "Verwendung der Menü-Blöcke" },
+        { t: 1020, es: "Corrección de errores y cierre del video", en: "Fixing errors and closing", de: "Fehlerbehebung und Videoabschluss" }
+      ]
+    },
+    {
+      num: "07",
+      youtubeId: "jrlzS967czM",
+      tags: { es: ["arcade-story-mode", "character-animations", "escenas"], en: ["arcade-story-mode", "character-animations", "scenes"], de: ["arcade-story-mode", "character-animations", "Szenen"] },
+      title: { es: "Creación de una escena con Story Mode y animaciones", en: "Building a scene with Story Mode and animations", de: "Erstellen einer Szene mit Story Mode und Animationen" },
+      text: {
+        es: "Ponemos en práctica la creación de una pequeña escena combinando las extensiones arcade-story-mode 🎭 y arcade-character-animations 🤺.",
+        en: "We put it into practice by building a small scene, combining the arcade-story-mode 🎭 and arcade-character-animations 🤺 extensions.",
+        de: "Wir üben das Erstellen einer kleinen Szene, indem wir die Erweiterungen arcade-story-mode 🎭 und arcade-character-animations 🤺 kombinieren."
+      },
+      chapters: [
+        { t: 0, es: "Introducción", en: "Introduction", de: "Einführung" },
+        { t: 102, es: "Explicación de los bloques character-animations", en: "Explaining the character-animations blocks", de: "Erklärung der character-animations-Blöcke" },
+        { t: 318, es: "Probando escena y movimiento programado de personajes", en: "Testing the scene and programmed character movement", de: "Testen der Szene und programmierte Charakterbewegung" },
+        { t: 468, es: "Programando diálogos correctos y animaciones", en: "Programming correct dialogues and animations", de: "Programmieren korrekter Dialoge und Animationen" },
+        { t: 693, es: "¿Cómo saltear diálogos o escenas? Cierre del video", en: "How to skip dialogues or scenes? Video wrap-up", de: "Wie überspringt man Dialoge oder Szenen? Videoabschluss" }
+      ]
     }
   ];
 
